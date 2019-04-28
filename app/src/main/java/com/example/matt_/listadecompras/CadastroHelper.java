@@ -38,7 +38,7 @@ public class CadastroHelper {
         campoMarca.setText(produto.getMarca());
         campoTipoProduto.setText(produto.getTipoProduto());
         campoPreco.setText(produto.getPreco().toString());
-        campoQuantidade.setText(produto.getQuantidade().intValue());
+        campoQuantidade.setText(produto.getQuantidade().toString());
         this.produto = produto;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.matt_.listadecompras.DAO.ProdutoDAO;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ListProdutoActivity extends AppCompatActivity {
 
     private ListView listaProdutos;
+    private TextView textTotalPagamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class ListProdutoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_produto);
 
         listaProdutos = (ListView) findViewById(R.id.lista_prdutos);
+        textTotalPagamento = (TextView) findViewById(R.id.total_pagamento);
 
         listaProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,5 +86,12 @@ public class ListProdutoActivity extends AppCompatActivity {
 
         ArrayAdapter<Produto> adapter = new ArrayAdapter<Produto>(this, android.R.layout.simple_list_item_1, produtos);
         listaProdutos.setAdapter(adapter);
+
+        Double totalPreco = 0.0;
+        for(Produto produto : produtos){
+           totalPreco += produto.getTotalPreco();
+        }
+
+        textTotalPagamento.setText("Total a pagar: " + totalPreco);
     }
 }

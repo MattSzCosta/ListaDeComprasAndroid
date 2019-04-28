@@ -20,8 +20,8 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Produtos (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, marca TEXT NOT NULL, tipoProduto TEXT, " +
-                "quantidade INTERGER NOT NULL, preco INTEGER NOT NULL)";
+        String sql = "CREATE TABLE Produtos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, marca TEXT NOT NULL, tipoProduto TEXT, " +
+                "quantidade INTEGER NOT NULL, preco DOUBLE NOT NULL)";
         db.execSQL(sql);
     }
 
@@ -63,7 +63,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             produto.setNome(c.getString(c.getColumnIndex("nome")));
             produto.setMarca(c.getString(c.getColumnIndex("marca")));
             produto.setTipoProduto(c.getString(c.getColumnIndex("tipoProduto")));
-            produto.setTipoProduto(c.getString(c.getColumnIndex("quantidade")));
+            produto.setQuantidade(c.getLong(c.getColumnIndex("quantidade")));
             produto.setPreco(c.getDouble(c.getColumnIndex("preco")));
             produtos.add(produto);
         }

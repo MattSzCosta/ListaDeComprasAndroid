@@ -66,6 +66,6 @@ public class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return getNome() + " - " + getPreco() + " x "+ getQuantidade() + " = ";
+        return getNome() + " - " + getPreco() + " x "+ getQuantidade() + " = " + getTotalPreco();
     }
 }
