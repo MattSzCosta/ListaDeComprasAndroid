@@ -20,7 +20,7 @@ import java.util.List;
 public class ProdutoDAO extends SQLiteOpenHelper {
 
     public ProdutoDAO(Context context) {
-        super(context, "ListaCompra", null, 1);
+        super(context, "ListaCompra", null, 2);
     }
 
     @Override
@@ -111,11 +111,9 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     }
 
     public long newLista(String nomeDaLista) {
-        Log.e("NomeLista", nomeDaLista);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues dados = new ContentValues();
         dados.put("nomeLista",nomeDaLista);
-        Log.e("DADOS", dados.getAsString("nomeLista"));
         Long id = db.insert("Lista", null, dados);
         Log.e("RETORNO: ", id.toString());
         return id;
