@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
+import com.example.matt_.listadecompras.Model.ItensLista;
+import com.example.matt_.listadecompras.Model.Lista;
 import com.example.matt_.listadecompras.Model.Produto;
 
 import java.util.ArrayList;
@@ -55,6 +57,21 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         return dados;
     }
 
+    @NonNull
+    private ContentValues getLista(Lista lista){
+        ContentValues dados = new ContentValues();
+        dados.put("id", lista.getId());
+        dados.put("nomeLista", lista.getNome());
+        return dados;
+    }
+    @NonNull
+    private ContentValues getItemLista(ItensLista itensLista) {
+        ContentValues dados = new ContentValues();
+        dados.put("idLista", itensLista.getIdLista());
+        dados.put("idProduto", itensLista.getIdProduto());
+        return dados;
+    }
+
     public List<Produto> getProdutos() {
         String sql = "SELECT * from Produtos;";
         SQLiteDatabase db = getReadableDatabase();
@@ -92,14 +109,14 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
     public void newLista(Lista lista) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues dados = getProduto(produto);
+        ContentValues dados = getLista(lista);
         db.insert("Lista", null, dados);
     }
 
-    public void insertProductAtList(Integer idList, Integer idProduct) {
+    public void insertProductAtList(ItensLista itensLista) {
         SQLiteDatabase db = getWritableDatabase();
 
-        ContentValues dados = getProduto(produto);
+        ContentValues dados = getItemLista(itensLista);
 
         db.insert("ItensLista", null, dados);
     }
