@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.example.matt_.listadecompras.MainActivity;
 import com.example.matt_.listadecompras.Model.ItensLista;
 import com.example.matt_.listadecompras.Model.Lista;
 import com.example.matt_.listadecompras.Model.Produto;
@@ -107,10 +110,15 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         db.update("Produtos", dados, "id = ?", params);
     }
 
-    public void newLista(Lista lista) {
+    public long newLista(String nomeDaLista) {
+        Log.e("NomeLista", nomeDaLista);
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues dados = getLista(lista);
-        db.insert("Lista", null, dados);
+        ContentValues dados = new ContentValues();
+        dados.put("nomeLista",nomeDaLista);
+        Log.e("DADOS", dados.getAsString("nomeLista"));
+        Long id = db.insert("Lista", null, dados);
+        Log.e("RETORNO: ", id.toString());
+        return id;
     }
 
     public void insertProductAtList(ItensLista itensLista) {
