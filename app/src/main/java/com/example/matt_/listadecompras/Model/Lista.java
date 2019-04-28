@@ -20,4 +20,9 @@ public class Lista {
 
     private Long id;
     private String nome;
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getNome();
+    }
 }

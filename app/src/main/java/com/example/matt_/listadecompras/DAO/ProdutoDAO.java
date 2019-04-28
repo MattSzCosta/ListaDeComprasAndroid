@@ -133,4 +133,20 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(sql, null);
     }
 
+    public List<Lista> getLista(){
+        String sql = "SELECT * from Lista";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+
+        List<Lista> lista = new ArrayList<>();
+        while(c.moveToNext()){
+            Lista item = new Lista();
+            item.setId(c.getLong(c.getColumnIndex("id")));
+            item.setNome(c.getString(c.getColumnIndex("nomeLista")));
+            lista.add(item);
+        }
+        c.close();
+        return lista;
+    }
+
 }
