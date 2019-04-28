@@ -22,7 +22,11 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE Produtos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, marca TEXT NOT NULL, tipoProduto TEXT, " +
                 "quantidade INTEGER NOT NULL, preco DOUBLE NOT NULL)";
+        String sql2 = "CREATE TABLE Lista (id INTEGER PRIMARY KEY AUTOINCREMENT, nomeLista TEXT NOT NULL)";
+        String sql3 = "CREATE TABLE ItensLista (id INTEGER PRIMARY KEY AUTOINCREMENT, idLista INTEGER NOT NULL, idProduto INTEGER NOT NULL)";
         db.execSQL(sql);
+        db.execSQL(sql2);
+        db.execSQL(sql3);
     }
 
     @Override
@@ -84,6 +88,26 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
         String[] params = {produto.getId().toString()};
         db.update("Produtos", dados, "id = ?", params);
+    }
+
+    public void newLista(Lista lista) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues dados = getProduto(produto);
+        db.insert("Lista", null, dados);
+    }
+
+    public void insertProductAtList(Integer idList, Integer idProduct) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues dados = getProduto(produto);
+
+        db.insert("ItensLista", null, dados);
+    }
+
+    public void getListItems (Integer idlist) {
+        String sql = "SELECT * from Itens Lista WHERE id =" +idlist+";";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
     }
 
 }
