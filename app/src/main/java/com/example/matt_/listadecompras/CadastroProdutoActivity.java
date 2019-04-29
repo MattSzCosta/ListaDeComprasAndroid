@@ -14,7 +14,6 @@ import com.example.matt_.listadecompras.Model.Produto;
 public class CadastroProdutoActivity extends AppCompatActivity {
 
     private CadastroHelper helper;
-    private ItensLista itensLista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +40,7 @@ public class CadastroProdutoActivity extends AppCompatActivity {
                     dao.altera(produto);
                 }else{
                     Long idProduct = dao.insere(produto);
+                    ItensLista itensLista = new ItensLista();
                     itensLista.setIdProduto(idProduct);
                     Intent intent = getIntent();
                     itensLista.setIdLista(intent.getLongExtra("idLista", 0));
