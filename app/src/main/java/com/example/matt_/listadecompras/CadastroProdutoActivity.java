@@ -53,5 +53,13 @@ public class CadastroProdutoActivity extends AppCompatActivity {
                 finish();
             }
         });
+        Button botaoProdutosCadastrados = (Button) findViewById(R.id.botao_produtosCadastrados);
+        botaoProdutosCadastrados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent produtosCadastrados = new Intent(CadastroProdutoActivity.this, ProdutosCadastrados.class);
+                startActivity(produtosCadastrados);
+            }
+        });
     }
 }

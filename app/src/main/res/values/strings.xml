@@ -2,5 +2,6 @@
     <string name="app_name">ListaDeCompras</string>
     <string name="plus">+</string>
     <string name="botaoSalvar">Salvar</string>
+    <string name="botaoProdutosCadastrados">Produtos Cadastrados</string>
     <string name="minhas_listas">Minhas Listas</string>
 </resources>
