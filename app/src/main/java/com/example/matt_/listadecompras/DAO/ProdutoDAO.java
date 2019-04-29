@@ -132,14 +132,15 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         String sql = "SELECT * from ItensLista WHERE idLista =" +idlist+";";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
-        List listaIdProdutos = new ArrayList<>();
+        List<ItensLista> listaIdProdutos = new ArrayList<>();
         while(c.moveToNext()){
-            Long idProduto = c.getLong(c.getColumnIndex("idProduto"));
-            listaIdProdutos.add(idProduto);
+            ItensLista itens = new ItensLista();
+            itens.setIdProduto(c.getLong(c.getColumnIndex("idProduto")));
+            listaIdProdutos.add(itens);
         }
         c.close();
         List<Produto> listaProdutos = new ArrayList<>();
-        for (Long id : listaIdProdutos) {
+        for (ItensLista item: listaIdProdutos){
 
         }
 
