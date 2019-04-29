@@ -132,7 +132,6 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     }
 
     public List<Produto> getListItems (Long idlist) {
-        Log.e("ID LISTA", idlist.toString());
         String sql = "SELECT * from ItensLista WHERE idLista =" +idlist+";";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
@@ -142,7 +141,6 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             itens.setIdProduto(c.getLong(c.getColumnIndex("idProduto")));
             listaIdProdutos.add(itens);
         }
-        Log.e("ID PRODUTOS DA LISTA:", listaIdProdutos.toString());
         c.close();
         List<Produto> listaProdutos = new ArrayList<>();
         for (ItensLista item: listaIdProdutos){
@@ -162,7 +160,6 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             }
             c2.close();
         }
-        Log.e("PRODUTOS DA LISTA:", listaProdutos.toString());
 
         return listaProdutos;
     }

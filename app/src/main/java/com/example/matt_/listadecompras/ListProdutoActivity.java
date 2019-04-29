@@ -38,8 +38,6 @@ public class ListProdutoActivity extends AppCompatActivity {
                 Produto produto = (Produto) listaProdutos.getItemAtPosition(position);
                 Intent intentVaiProCadastro = new Intent(ListProdutoActivity.this, CadastroProdutoActivity.class);
                 intentVaiProCadastro.putExtra("produto", produto);
-                Intent intent = getIntent();
-                intentVaiProCadastro.putExtra("idLista", intent.getSerializableExtra("idLista"));
                 startActivity(intentVaiProCadastro);
             }
         });
@@ -49,6 +47,9 @@ public class ListProdutoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentVaiProFormulario = new Intent(ListProdutoActivity.this, CadastroProdutoActivity.class);
+                Intent intentAtual = getIntent();
+                intentVaiProFormulario.putExtra("idLista", intentAtual.getLongExtra("idLista", 0));
+                Log.e("ID LISTAA", String.valueOf(intentAtual.getLongExtra("idLista", 0)));
                 startActivity(intentVaiProFormulario);
             }
         });

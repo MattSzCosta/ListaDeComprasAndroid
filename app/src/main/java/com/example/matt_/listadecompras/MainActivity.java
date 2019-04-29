@@ -30,32 +30,32 @@ public class MainActivity extends AppCompatActivity {
         listaCompra = (ListView) findViewById(R.id.lista_compras);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Nova Lista");
-        final EditText input = new EditText(this);
-        builder.setView(input);
-        builder.setPositiveButton("Criar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                ProdutoDAO dao = new ProdutoDAO(MainActivity.this);
-                Intent intentListaProdutos = new Intent(MainActivity.this, ListProdutoActivity.class);
-                String nomeLista = input.getText().toString();
-                Long idLista = dao.newLista(nomeLista);
-                intentListaProdutos.putExtra("idLista", idLista);
-                startActivity(intentListaProdutos);
-            }
-        });
-
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
 
         Button botaoNovaLista = (Button) findViewById(R.id.nova_lista);
         botaoNovaLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                builder.setTitle("Nova Lista");
+                final EditText input = new EditText(MainActivity.this);
+                builder.setView(input);
+                builder.setPositiveButton("Criar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ProdutoDAO dao = new ProdutoDAO(MainActivity.this);
+                        Intent intentListaProdutos = new Intent(MainActivity.this, ListProdutoActivity.class);
+                        String nomeLista = input.getText().toString();
+                        Long idLista = dao.newLista(nomeLista);
+                        intentListaProdutos.putExtra("idLista", idLista);
+                        startActivity(intentListaProdutos);
+                    }
+                });
+
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
                 builder.show();
             }
         });
