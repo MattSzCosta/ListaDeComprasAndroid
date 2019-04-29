@@ -82,8 +82,9 @@ public class ListProdutoActivity extends AppCompatActivity {
     }
 
     private void carregaLista() {
+        Intent intent = getIntent();
         ProdutoDAO dao = new ProdutoDAO(this);
-        List<Produto> produtos = dao.getProdutos();
+        List<Produto> produtos = dao.getListItems(intent.getIntExtra("idLista", 0));
         dao.close();
 
         ArrayAdapter<Produto> adapter = new ArrayAdapter<Produto>(this, android.R.layout.simple_list_item_1, produtos);

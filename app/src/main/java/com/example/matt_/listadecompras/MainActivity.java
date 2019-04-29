@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 builder.show();
+            }
+        });
+
+        listaCompra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Lista lista = (Lista) listaCompra.getItemAtPosition(position);
+                Long idLista = lista.getId();
+                Intent intentVaiProCadastro = new Intent(MainActivity.this, ListProdutoActivity.class);
+                intentVaiProCadastro.putExtra("idLista", idLista);
+                startActivity(intentVaiProCadastro);
             }
         });
     }

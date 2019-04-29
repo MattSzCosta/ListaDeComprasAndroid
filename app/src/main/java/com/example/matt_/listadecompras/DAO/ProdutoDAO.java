@@ -116,7 +116,6 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         ContentValues dados = new ContentValues();
         dados.put("nomeLista",nomeDaLista);
         Long id = db.insert("Lista", null, dados);
-        Log.e("RETORNO: ", id.toString());
         return id;
     }
 
@@ -141,7 +140,22 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         c.close();
         List<Produto> listaProdutos = new ArrayList<>();
         for (ItensLista item: listaIdProdutos){
+            String sqlProduto = "SELECT * from Produtos WHERE id =" +item.getIdProduto()+";";
+            SQLiteDatabase db2 = getReadableDatabase();
+            Cursor c2 = db2.rawQuery(sqlProduto, null);
 
+            List<Produto> produtos = new ArrayList<>();
+            while(c2.moveToNext()){
+                Produto produto = new Produto();
+                produto.setId(c.getLong(c.getColumnIndex("id")));
+                produto.setNome(c.getString(c.getColumnIndex("nome")));
+                produto.setMarca(c.getString(c.getColumnIndex("marca")));
+                produto.setTipoProduto(c.getString(c.getColumnIndex("tipoProduto")));
+                produto.setQuantidade(c.getLong(c.getColumnIndex("quantidade")));
+                produto.setPreco(c.getDouble(c.getColumnIndex("preco")));
+                listaProdutos.add(produto);
+            }
+            c2.close();
         }
 
         return listaProdutos;
