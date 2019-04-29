@@ -41,12 +41,13 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insere(Produto produto) {
+    public Long insere(Produto produto) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues dados = getProduto(produto);
 
-        db.insert("Produtos", null, dados);
+        Long idProduct = db.insert("Produtos", null, dados);
+        return idProduct;
     }
 
     @NonNull
@@ -128,7 +129,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     }
 
     public void getListItems (Integer idlist) {
-        String sql = "SELECT * from Itens Lista WHERE id =" +idlist+";";
+        String sql = "SELECT * from ItensLista WHERE id =" +idlist+";";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
     }

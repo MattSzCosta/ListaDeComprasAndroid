@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.matt_.listadecompras.DAO.ProdutoDAO;
+import com.example.matt_.listadecompras.Model.ItensLista;
 import com.example.matt_.listadecompras.Model.Produto;
 
 public class CadastroProdutoActivity extends AppCompatActivity {
 
     private CadastroHelper helper;
+    private ItensLista itensLista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,11 @@ public class CadastroProdutoActivity extends AppCompatActivity {
                 if(produto.getId() != null){
                     dao.altera(produto);
                 }else{
-                    dao.insere(produto);
+                    Long idProduct = dao.insere(produto);
+                    itensLista.setIdProduto(idProduct);
+                    Intent intent = getIntent();
+                    itensLista.setIdLista(intent.getLongExtra("idLista", 0));
+                    dao.insertProductAtList(itensLista);
                 }
 
                 dao.close();
