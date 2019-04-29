@@ -133,8 +133,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
     public List<Produto> getListItems (Long idlist) {
         Log.e("ID LISTA", idlist.toString());
-        //String sql = "SELECT * from ItensLista WHERE idLista =" +idlist+";";
-        String sql = "SELECT * from ItensLista";
+        String sql = "SELECT * from ItensLista WHERE idLista =" +idlist+";";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
         List<ItensLista> listaIdProdutos = new ArrayList<>();
@@ -153,12 +152,12 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
             while(c2.moveToNext()){
                 Produto produto = new Produto();
-                produto.setId(c.getLong(c.getColumnIndex("id")));
-                produto.setNome(c.getString(c.getColumnIndex("nome")));
-                produto.setMarca(c.getString(c.getColumnIndex("marca")));
-                produto.setTipoProduto(c.getString(c.getColumnIndex("tipoProduto")));
-                produto.setQuantidade(c.getLong(c.getColumnIndex("quantidade")));
-                produto.setPreco(c.getDouble(c.getColumnIndex("preco")));
+                produto.setId(c2.getLong(c2.getColumnIndex("id")));
+                produto.setNome(c2.getString(c2.getColumnIndex("nome")));
+                produto.setMarca(c2.getString(c2.getColumnIndex("marca")));
+                produto.setTipoProduto(c2.getString(c2.getColumnIndex("tipoProduto")));
+                produto.setQuantidade(c2.getLong(c2.getColumnIndex("quantidade")));
+                produto.setPreco(c2.getDouble(c2.getColumnIndex("preco")));
                 listaProdutos.add(produto);
             }
             c2.close();
