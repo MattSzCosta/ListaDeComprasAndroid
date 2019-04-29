@@ -128,10 +128,22 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         db.insert("ItensLista", null, dados);
     }
 
-    public void getListItems (Integer idlist) {
-        String sql = "SELECT * from ItensLista WHERE id =" +idlist+";";
+    public List<Produto> getListItems (Integer idlist) {
+        String sql = "SELECT * from ItensLista WHERE idLista =" +idlist+";";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
+        List listaIdProdutos = new ArrayList<>();
+        while(c.moveToNext()){
+            Long idProduto = c.getLong(c.getColumnIndex("idProduto"));
+            listaIdProdutos.add(idProduto);
+        }
+        c.close();
+        List<Produto> listaProdutos = new ArrayList<>();
+        for (Long id : listaIdProdutos) {
+
+        }
+
+        return listaProdutos;
     }
 
     public List<Lista> getLista(){
