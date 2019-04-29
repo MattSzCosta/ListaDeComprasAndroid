@@ -34,6 +34,9 @@ public class CadastroProdutoActivity extends AppCompatActivity {
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!helper.validarCampo()){
+                    return;
+                }
                 Produto produto = helper.getProduto();
                 ProdutoDAO dao = new ProdutoDAO(CadastroProdutoActivity.this);
 

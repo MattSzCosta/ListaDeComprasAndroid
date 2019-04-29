@@ -4,6 +4,10 @@ import android.widget.EditText;
 
 import com.example.matt_.listadecompras.Model.Produto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class CadastroHelper {
 
     private final EditText campoNome;
@@ -21,6 +25,19 @@ public class CadastroHelper {
         campoPreco = (EditText) activity.findViewById(R.id.cadastro_preco);
         campoQuantidade = (EditText) activity.findViewById(R.id.cadastro_quantidade);
         produto = new Produto();
+    }
+
+    public boolean validarCampo(){
+        Boolean isValido = true;
+        List<EditText> lista = new ArrayList<EditText>(Arrays.asList(campoNome,campoMarca,campoTipoProduto,campoPreco,campoQuantidade));
+        for(EditText campo : lista) {
+            if (campo.getText().toString().isEmpty()) {
+                campo.setError("Campo obrigatório");
+                isValido = false;
+
+            }
+        }
+        return isValido;
     }
 
     public Produto getProduto() {
