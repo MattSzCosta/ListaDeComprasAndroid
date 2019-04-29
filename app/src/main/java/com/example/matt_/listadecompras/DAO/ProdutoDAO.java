@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.matt_.listadecompras.CadastroHelper;
 import com.example.matt_.listadecompras.MainActivity;
 import com.example.matt_.listadecompras.Model.ItensLista;
 import com.example.matt_.listadecompras.Model.Lista;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoDAO extends SQLiteOpenHelper {
+    private CadastroHelper helper;
 
     public ProdutoDAO(Context context) {
         super(context, "ListaCompra", null, 2);
@@ -47,6 +50,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         ContentValues dados = getProduto(produto);
 
         Long idProduct = db.insert("Produtos", null, dados);
+        Log.e("ID PRODUTO", idProduct.toString());
         return idProduct;
     }
 
@@ -127,8 +131,10 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         db.insert("ItensLista", null, dados);
     }
 
-    public List<Produto> getListItems (Integer idlist) {
-        String sql = "SELECT * from ItensLista WHERE idLista =" +idlist+";";
+    public List<Produto> getListItems (Long idlist) {
+        Log.e("ID LISTA", idlist.toString());
+        //String sql = "SELECT * from ItensLista WHERE idLista =" +idlist+";";
+        String sql = "SELECT * from ItensLista";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
         List<ItensLista> listaIdProdutos = new ArrayList<>();
@@ -137,6 +143,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             itens.setIdProduto(c.getLong(c.getColumnIndex("idProduto")));
             listaIdProdutos.add(itens);
         }
+        Log.e("ID PRODUTOS DA LISTA:", listaIdProdutos.toString());
         c.close();
         List<Produto> listaProdutos = new ArrayList<>();
         for (ItensLista item: listaIdProdutos){
@@ -144,7 +151,6 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             SQLiteDatabase db2 = getReadableDatabase();
             Cursor c2 = db2.rawQuery(sqlProduto, null);
 
-            List<Produto> produtos = new ArrayList<>();
             while(c2.moveToNext()){
                 Produto produto = new Produto();
                 produto.setId(c.getLong(c.getColumnIndex("id")));
@@ -157,6 +163,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             }
             c2.close();
         }
+        Log.e("PRODUTOS DA LISTA:", listaProdutos.toString());
 
         return listaProdutos;
     }

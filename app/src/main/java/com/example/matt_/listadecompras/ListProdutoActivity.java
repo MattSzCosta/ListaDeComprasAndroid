@@ -3,6 +3,7 @@ package com.example.matt_.listadecompras;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,7 +85,7 @@ public class ListProdutoActivity extends AppCompatActivity {
     private void carregaLista() {
         Intent intent = getIntent();
         ProdutoDAO dao = new ProdutoDAO(this);
-        List<Produto> produtos = dao.getListItems(intent.getIntExtra("idLista", 0));
+        List<Produto> produtos = dao.getListItems(intent.getLongExtra("idLista", 0));
         dao.close();
 
         ArrayAdapter<Produto> adapter = new ArrayAdapter<Produto>(this, android.R.layout.simple_list_item_1, produtos);
